@@ -31,6 +31,13 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['*']
 
+# CSRF trusted origins for Railway deployment
+CSRF_TRUSTED_ORIGINS = [
+    'https://web-production-dff4.up.railway.app',
+    'http://localhost:8000',
+    'http://127.0.0.1:8000',
+]
+
 
 # Application definition
 
