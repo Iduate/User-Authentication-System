@@ -1,0 +1,41 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+      - redis
+    environment:
+      - SECRET_KEY=django-insecure-key-for-development-only
+      - DEBUG=True
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=auth_service
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/auth_service
+      - REDIS_URL=redis://redis:6379/0
+      - JWT_ACCESS_TOKEN_LIFETIME_MINUTES=60
+      - JWT_REFRESH_TOKEN_LIFETIME_DAYS=7
+
+  db:
+    image: postgres:14
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=auth_service
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+
+volumes:
+  postgres_data:
