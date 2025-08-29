@@ -18,13 +18,11 @@ if __name__ == '__main__':
         print("Superuser already exists!")
     else:
         # Create superuser with environment variables or defaults
-        username = os.environ.get('SUPERUSER_USERNAME', 'admin')
         email = os.environ.get('SUPERUSER_EMAIL', 'admin@example.com')
         password = os.environ.get('SUPERUSER_PASSWORD', 'admin123')
         
         User.objects.create_superuser(
-            username=username,
             email=email,
             password=password
         )
-        print(f"Superuser '{username}' created successfully!")
+        print(f"Superuser '{email}' created successfully!")
