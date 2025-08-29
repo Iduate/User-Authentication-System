@@ -14,8 +14,25 @@ if __name__ == '__main__':
     User = get_user_model()
     
     # Check if superuser already exists
-    if User.objects.filter(is_superuser=True).exists():
+    existing_superusers = User.objects.filter(is_superuser=True)
+    if existing_superusers.exists():
         print("Superuser already exists!")
+        for user in existing_superusers:
+            print(f"Existing superuser email: {user.email}")
+        
+        # Update the first superuser's password with the new one from environment
+        email = os.environ.get('SUPERUSER_EMAIL', 'admin@example.com')
+        password = os.environ.get('SUPERUSER_PASSWORD', 'admin123')
+        
+        # If the environment email matches an existing superuser, update password
+        superuser = existing_superusers.filter(email=email).first()
+        if superuser:
+            superuser.set_password(password)
+            superuser.save()
+            print(f"Updated password for existing superuser: {email}")
+        else:
+            print(f"To login, use one of the existing emails above with the original password")
+            print(f"Or delete the existing superuser and redeploy to create: {email}")
     else:
         # Create superuser with environment variables or defaults
         email = os.environ.get('SUPERUSER_EMAIL', 'admin@example.com')
