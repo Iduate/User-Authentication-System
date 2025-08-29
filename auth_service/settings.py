@@ -241,8 +241,8 @@ REDIS_URL = config('REDIS_URL', default='redis://localhost:6379/0')
 # Django cache settings
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'unique-snowflake',
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'auth_cache_table',
     }
 }
 
