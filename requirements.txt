@@ -14,3 +14,10 @@ python-decouple==3.8
 redis==5.0.0
 whitenoise==6.5.0
 django-cors-headers==4.3.0
+
+# Optional: README to Word export functionality
+# Uncomment these lines if you want to use the export_readme_to_word.py script
+# python-docx==0.8.11
+# markdown==3.5.1
+# beautifulsoup4==4.12.2
+# lxml==4.9.3
